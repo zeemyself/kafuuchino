@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte'
 	import to from 'await-to-js'
 
-	let device = 'Loading'
+	let device = $state('Loading')
 
 	onMount(() => {
 		const canvas = document.querySelector('canvas')
