@@ -9,8 +9,8 @@ export default defineConfig({
 		globals: true,
 		setupFiles: ['./src/test-setup.ts'],
 		alias: {
-			'$lib': './src/lib',
-			'$app': '@sveltejs/kit/app'
+			$lib: './src/lib',
+			$app: '@sveltejs/kit/app'
 		}
 	}
 })

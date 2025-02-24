@@ -1,18 +1,17 @@
 <script lang="ts">
-	import { run, preventDefault } from 'svelte/legacy';
+	import { run, preventDefault } from 'svelte/legacy'
 
 	import { confetti } from '@neoconfetti/svelte'
 	import { enhance } from '$app/forms'
 	import type { PageData, ActionData } from './$types'
 	import { reduced_motion } from './reduced-motion'
 
-
 	interface Props {
-		data: PageData;
-		form: ActionData;
+		data: PageData
+		form: ActionData
 	}
 
-	let { data, form = $bindable() }: Props = $props();
+	let { data, form = $bindable() }: Props = $props()
 
 	/** Whether or not the user has won */
 	let won = $derived(data.answers.at(-1) === 'xxxxx')
@@ -21,10 +20,10 @@
 	let i = $derived(won ? -1 : data.answers.length)
 
 	/** The current guess */
-	let currentGuess;
+	let currentGuess
 	run(() => {
 		currentGuess = data.guesses[i] || ''
-	});
+	})
 
 	/** Whether the current guess can be submitted */
 	let submittable = $derived(currentGuess.length === 5)
@@ -60,7 +59,7 @@
 				}
 			}
 		})
-	});
+	})
 
 	/**
 	 * Modify the game state without making a trip to the server,
