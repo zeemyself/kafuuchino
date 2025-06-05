@@ -40,6 +40,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@jscad/3mf-serializer": "^2.1.14",
+		"@jscad/stl-deserializer": "^2.1.27",
 		"await-to-js": "^3.0.0"
 	},
 	"overrides": {
