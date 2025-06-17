@@ -1,16 +1,12 @@
-import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-	plugins: [sveltekit()],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}'],
-		environment: 'jsdom',
-		globals: true,
-		setupFiles: ['./src/test-setup.ts'],
-		alias: {
-			$lib: './src/lib',
-			$app: '@sveltejs/kit/app'
-		}
-	}
+  plugins: [react()],
+  test: {
+    include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test-setup.ts']
+  }
 })
