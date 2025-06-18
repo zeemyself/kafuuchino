@@ -24,6 +24,14 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       'semi': ['error', 'never'],
+      '@typescript-eslint/no-empty-interface': [
+				'error',
+				{ allowSingleExtends: true },
+			],
+			'react/jsx-curly-brace-presence': [
+				'error',
+				{ children: 'never', props: 'never' },
+			],
     },
   },
 )
