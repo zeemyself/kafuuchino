@@ -56,6 +56,25 @@ export const Route = createRootRoute({
 								Hueforge
 							</Link>
 							<Link
+								to="/td-test"
+								className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:bg-yellow-100 hover:text-yellow-700 [&.active]:bg-yellow-600 [&.active]:text-white [&.active]:shadow-lg"
+							>
+								<svg
+									className="w-4 h-4 mr-2"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
+								TD Test
+							</Link>
+							<Link
 								to="/about"
 								className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:bg-purple-100 hover:text-purple-700 [&.active]:bg-purple-600 [&.active]:text-white [&.active]:shadow-lg"
 							>
