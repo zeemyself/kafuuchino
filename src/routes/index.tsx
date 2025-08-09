@@ -15,9 +15,9 @@ function Index() {
   })
 
   return (
-    <div className="min-h-screen">
+    <div>
       {/* Hero - Kafuu Chino vibe */}
-      <section className="relative overflow-hidden rounded-3xl border border-indigo-100/60 bg-gradient-to-b from-sky-50 via-indigo-50 to-pink-50 shadow-xl mx-4 sm:mx-6 lg:mx-8 mt-6">
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-sky-50 via-indigo-50 to-pink-50 shadow-xl mt-2">
         <div className="absolute inset-0 opacity-60" style={{
           backgroundImage:
             'radial-gradient(1200px 400px at 10% -10%, rgba(99,102,241,0.08), transparent), radial-gradient(800px 300px at 90% 0%, rgba(14,165,233,0.08), transparent), radial-gradient(600px 200px at 50% 110%, rgba(236,72,153,0.08), transparent)'
@@ -53,10 +53,10 @@ function Index() {
           </div>
         </div>
 
-        {/* Decorative floaties */}
-        <span className="pointer-events-none absolute -left-4 top-10 h-28 w-28 rounded-full bg-sky-300/20 blur-2xl floaty" />
-        <span className="pointer-events-none absolute right-8 -bottom-6 h-32 w-32 rounded-full bg-pink-300/20 blur-2xl floaty-slow" />
-        <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-4 h-20 w-20 rounded-full bg-indigo-300/20 blur-2xl floaty-slower" />
+        {/* Decorative floaties (kept within bounds) */}
+        <span className="pointer-events-none absolute left-2 top-8 h-28 w-28 rounded-full bg-sky-300/20 blur-2xl floaty" />
+        <span className="pointer-events-none absolute right-6 bottom-4 h-32 w-32 rounded-full bg-pink-300/20 blur-2xl floaty-slow" />
+        <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-6 h-20 w-20 rounded-full bg-indigo-300/20 blur-2xl floaty-slower" />
       </section>
 
       {/* Live Demo (TanStack Query) */}
