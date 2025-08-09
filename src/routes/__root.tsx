@@ -15,7 +15,7 @@ export const Route = createRootRoute({
 							</h1>
 						</div>
 
-						{/* Navigation Links */}
+                        {/* Navigation Links */}
 						<div className="flex space-x-8">
 							<Link
 								to="/"
@@ -53,7 +53,7 @@ export const Route = createRootRoute({
 										d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
 									/>
 								</svg>
-								Hueforge
+                                Hueforge
 							</Link>
 							<Link
 								to="/td-test"
@@ -72,7 +72,7 @@ export const Route = createRootRoute({
 										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 									/>
 								</svg>
-								TD Test
+                                TD Table
 							</Link>
 							<Link
 								to="/about"
@@ -105,16 +105,14 @@ export const Route = createRootRoute({
 				</div>
 			</main>
 
-			{/* Footer */}
+            {/* Footer */}
 			<footer className="mt-16 py-8 text-center text-gray-600">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<p className="text-sm">
-						Built with ❤️ using React, TanStack Router, and Tailwind CSS
-					</p>
+                    <p className="text-sm">© {new Date().getFullYear()} Kafuuchino</p>
 				</div>
 			</footer>
 
-			{import.meta.env.DEV && <TanStackRouterDevtools />}
+            {import.meta.env.DEV ? <TanStackRouterDevtools /> : null}
 		</div>
 	),
 })

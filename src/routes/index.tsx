@@ -20,30 +20,17 @@ function Index() {
       {/* Hero Section */}
       <div className="relative px-8 py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              Welcome to Kafuuchino
-            </span>
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Kafuuchino</h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            A modern React application built with TanStack Router, React Query, and styled with Tailwind CSS. 
-            Experience the perfect blend of performance and beauty.
+            React app with TanStack Router/Query and Tailwind CSS. Includes a Hueforge helper and a filament TD table.
           </p>
           
           {/* Feature Pills */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-              ⚡ TanStack Router
-            </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-              🔄 React Query
-            </span>
-            <span className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">
-              🎨 Tailwind CSS
-            </span>
-            <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-              ⚛️ React 19
-            </span>
+            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">TanStack Router</span>
+            <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">React Query</span>
+            <span className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">Tailwind CSS</span>
+            <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">React 19</span>
           </div>
         </div>
       </div>
@@ -52,16 +39,14 @@ function Index() {
       <div className="px-8 pb-16">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              🚀 TanStack Query Demo
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">TanStack Query Demo</h2>
             
             <div className="space-y-4">
               {isLoading && (
                 <div className="flex items-center justify-center p-8">
                   <div className="flex items-center space-x-3">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                    <p className="text-gray-600 font-medium">Loading amazing data...</p>
+                    <p className="text-gray-600 font-medium">Loading data...</p>
                   </div>
                 </div>
               )}
@@ -99,9 +84,7 @@ function Index() {
       {/* Features Grid */}
       <div className="px-8 pb-16">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Why Choose Kafuuchino?
-          </h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Features</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
@@ -110,8 +93,8 @@ function Index() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Lightning Fast</h3>
-              <p className="text-gray-600">Built with modern tools and optimized for performance. Experience blazing fast navigation and data loading.</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Fast</h3>
+              <p className="text-gray-600">Optimized navigation and data loading.</p>
             </div>
             
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
@@ -120,8 +103,8 @@ function Index() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Beautiful Design</h3>
-              <p className="text-gray-600">Crafted with attention to detail using Tailwind CSS. Every component is designed to provide the best user experience.</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Clean UI</h3>
+              <p className="text-gray-600">Built with Tailwind CSS.</p>
             </div>
             
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
@@ -131,7 +114,7 @@ function Index() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Type Safe</h3>
-              <p className="text-gray-600">Built with TypeScript and modern React patterns. Catch errors early and enjoy excellent developer experience.</p>
+              <p className="text-gray-600">TypeScript throughout.</p>
             </div>
           </div>
         </div>

@@ -74,10 +74,7 @@ function Hueforge() {
 							Hueforge Generator
 						</span>
 					</h1>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
-						Transform your STL files into multi-color 3MF prints with custom
-						text embedding
-					</p>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">Convert an STL into a 3MF with embedded text.</p>
 				</div>
 			</div>
 
@@ -98,7 +95,7 @@ function Hueforge() {
 									id="text-input"
 									value={textInput}
 									onChange={(e) => setTextInput(e.target.value)}
-									placeholder="Enter your text content here. This text will be embedded into the Hueforge processing..."
+                                    placeholder="Enter text to embed in the generated 3MF"
 									className="w-full h-40 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
 									rows={6}
 								/>
@@ -146,7 +143,7 @@ function Hueforge() {
 							</div>
 
 							{/* Generate Button */}
-							<div className="pt-4">
+                            <div className="pt-4">
 								<button
 									onClick={handleGenerate}
 									disabled={isGenerating || !textInput.trim() || !stlFile}
@@ -174,7 +171,7 @@ function Hueforge() {
 													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 												></path>
 											</svg>
-											<span>Generating 3MF File...</span>
+                                            <span>Generating…</span>
 										</>
 									) : (
 										<>
@@ -191,7 +188,7 @@ function Hueforge() {
 													d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
 												/>
 											</svg>
-											<span>Generate 3MF File</span>
+                                            <span>Generate 3MF</span>
 										</>
 									)}
 								</button>
@@ -217,11 +214,7 @@ function Hueforge() {
 										<h3 className="font-semibold text-orange-800 mb-1">
 											How it works
 										</h3>
-										<p className="text-orange-700 text-sm">
-											Upload your STL file and enter text content. The generator
-											will process your inputs and create a 3MF file optimized
-											for Hueforge multi-color printing with embedded text data.
-										</p>
+                                        <p className="text-orange-700 text-sm">Upload an STL and enter text. We return a demo 3MF file with that text embedded.</p>
 									</div>
 								</div>
 							</div>
