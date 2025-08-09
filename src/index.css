@@ -1,1 +1,11 @@
 @import "tailwindcss"
+
+@keyframes floaty {
+  0% { transform: translateY(0) }
+  50% { transform: translateY(-6px) }
+  100% { transform: translateY(0) }
+}
+
+.floaty { animation: floaty 6s ease-in-out infinite }
+.floaty-slow { animation: floaty 9s ease-in-out infinite }
+.floaty-slower { animation: floaty 12s ease-in-out infinite }

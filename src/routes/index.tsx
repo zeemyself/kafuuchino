@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 
 export const Route = createFileRoute('/')({
@@ -9,7 +9,6 @@ function Index() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['hello'],
     queryFn: async () => {
-      // Simulate an API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       return 'Hello from TanStack Query!'
     }
@@ -17,108 +16,109 @@ function Index() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="relative px-8 py-16 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Kafuuchino</h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            React app with TanStack Router/Query and Tailwind CSS. Includes a Hueforge helper and a filament TD table.
+      {/* Hero - Kafuu Chino vibe */}
+      <section className="relative overflow-hidden rounded-3xl border border-indigo-100/60 bg-gradient-to-b from-sky-50 via-indigo-50 to-pink-50 shadow-xl mx-4 sm:mx-6 lg:mx-8 mt-6">
+        <div className="absolute inset-0 opacity-60" style={{
+          backgroundImage:
+            'radial-gradient(1200px 400px at 10% -10%, rgba(99,102,241,0.08), transparent), radial-gradient(800px 300px at 90% 0%, rgba(14,165,233,0.08), transparent), radial-gradient(600px 200px at 50% 110%, rgba(236,72,153,0.08), transparent)'
+        }} />
+
+        <div className="relative z-10 px-8 py-16 md:py-20 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/70 backdrop-blur px-3 py-1 rounded-full text-[10px] md:text-xs font-semibold text-indigo-700 border border-white/60 shadow-sm">
+            <span>✨</span>
+            <span>kawaii mode</span>
+            <span>・かわいい</span>
+          </div>
+
+          <h1 className="mt-5 text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-sky-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
+            Kafuu Chino
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-indigo-700/80 max-w-3xl mx-auto leading-relaxed">
+            A soft, pastel anime-themed React app with TanStack Router/Query and Tailwind — cozy café vibes, floating sparkles, and cute UI.
           </p>
-          
-          {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">TanStack Router</span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">React Query</span>
-            <span className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">Tailwind CSS</span>
-            <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">React 19</span>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/hueforge"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-amber-400 to-pink-400 text-white font-semibold shadow hover:brightness-105 transition">
+              <span>🍮</span>
+              <span>Hueforge Helper</span>
+            </Link>
+            <Link
+              to="/td-test"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/80 text-indigo-700 font-semibold border border-indigo-200 shadow hover:bg-white transition">
+              <span>🐰</span>
+              <span>Filament TD Table</span>
+            </Link>
           </div>
         </div>
-      </div>
 
-      {/* Demo Section */}
-      <div className="px-8 pb-16">
+        {/* Decorative floaties */}
+        <span className="pointer-events-none absolute -left-4 top-10 h-28 w-28 rounded-full bg-sky-300/20 blur-2xl floaty" />
+        <span className="pointer-events-none absolute right-8 -bottom-6 h-32 w-32 rounded-full bg-pink-300/20 blur-2xl floaty-slow" />
+        <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-4 h-20 w-20 rounded-full bg-indigo-300/20 blur-2xl floaty-slower" />
+      </section>
+
+      {/* Live Demo (TanStack Query) */}
+      <section className="px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">TanStack Query Demo</h2>
-            
+          <div className="bg-white/70 backdrop-blur rounded-2xl shadow-lg border border-indigo-100 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-indigo-900 text-center mb-6">Live Demo</h2>
             <div className="space-y-4">
               {isLoading && (
-                <div className="flex items-center justify-center p-8">
-                  <div className="flex items-center space-x-3">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                    <p className="text-gray-600 font-medium">Loading data...</p>
+                <div className="flex items-center justify-center p-6">
+                  <div className="flex items-center gap-3 text-indigo-700">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+                    <p className="font-medium">Brewing something cute...</p>
                   </div>
                 </div>
               )}
-              
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <p className="text-red-800 font-medium">Error: {error.message}</p>
-                  </div>
-                </div>
-              )}
-              
-              {data && (
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <p className="text-green-800 font-medium text-lg">{data}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Features Grid */}
-      <div className="px-8 pb-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Features</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Fast</h3>
-              <p className="text-gray-600">Optimized navigation and data loading.</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Clean UI</h3>
-              <p className="text-gray-600">Built with Tailwind CSS.</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Type Safe</h3>
-              <p className="text-gray-600">TypeScript throughout.</p>
+              {error && (
+                <div className="bg-rose-50/80 border border-rose-200 rounded-xl p-5">
+                  <div className="flex items-center gap-3 text-rose-800">
+                    <span>💢</span>
+                    <p className="font-medium">Error: {error.message}</p>
+                  </div>
+                </div>
+              )}
+
+              {data && (
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-5">
+                  <div className="flex items-center gap-3 text-emerald-900">
+                    <span>✅</span>
+                    <p className="font-medium text-lg">{data}</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Feature vibes */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-3xl font-bold text-center text-indigo-900 mb-10">Cozy Features</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/80 backdrop-blur rounded-xl border border-indigo-100 shadow hover:shadow-md transition p-6">
+              <div className="w-12 h-12 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center mb-3">⭐</div>
+              <h4 className="text-lg font-semibold text-indigo-900 mb-1">Pastel UI</h4>
+              <p className="text-indigo-700/80 text-sm">Soft gradients, gentle shadows, and kawaii accents.</p>
+            </div>
+            <div className="bg-white/80 backdrop-blur rounded-xl border border-indigo-100 shadow hover:shadow-md transition p-6">
+              <div className="w-12 h-12 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center mb-3">☕</div>
+              <h4 className="text-lg font-semibold text-indigo-900 mb-1">Café Tools</h4>
+              <p className="text-indigo-700/80 text-sm">Hueforge helper and a Filament TD table.</p>
+            </div>
+            <div className="bg-white/80 backdrop-blur rounded-xl border border-indigo-100 shadow hover:shadow-md transition p-6">
+              <div className="w-12 h-12 rounded-lg bg-pink-100 text-pink-700 flex items-center justify-center mb-3">🐇</div>
+              <h4 className="text-lg font-semibold text-indigo-900 mb-1">Snappy & Type Safe</h4>
+              <p className="text-indigo-700/80 text-sm">React 19, TanStack Router/Query, and TypeScript.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 } 
