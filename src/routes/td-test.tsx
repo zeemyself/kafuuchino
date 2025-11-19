@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 
 export const Route = createFileRoute('/td-test')({
 	component: TDTest,
@@ -81,19 +81,29 @@ function TDTest() {
     const [sortDir, setSortDir] = useState<SortDir>('desc')
     const [copiedHex, setCopiedHex] = useState<string | null>(null)
 
+    const [debouncedSearch, setDebouncedSearch] = useState(search)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setDebouncedSearch(search), 300)
+        return () => clearTimeout(timer)
+    }, [search])
+
     const types = useMemo(() => ['All', ...Array.from(new Set(filamentData.map((f) => f.type)))], [])
     const brands = useMemo(() => ['All', ...Array.from(new Set(filamentData.map((f) => f.brand)))], [])
 
     const filteredAndSorted = useMemo(() => {
         const [min, max] = tdRange
-        const lower = search.trim().toLowerCase()
+        const searchTerms = debouncedSearch.trim().toLowerCase().split(/\s+/).filter(Boolean)
+        
         const result = filamentData
             .filter((f) => (filterType === 'All' ? true : f.type === filterType))
             .filter((f) => (filterBrand === 'All' ? true : f.brand === filterBrand))
             .filter((f) => f.td >= min && f.td <= max)
-            .filter((f) =>
-                lower === '' ? true : f.brand.toLowerCase().includes(lower) || f.color.toLowerCase().includes(lower),
-            )
+            .filter((f) => {
+                if (searchTerms.length === 0) return true
+                const searchString = `${f.brand} ${f.type} ${f.color}`.toLowerCase()
+                return searchTerms.every((term) => searchString.includes(term))
+            })
             .slice()
             .sort((a, b) => {
                 const dir = sortDir === 'asc' ? 1 : -1
@@ -102,7 +112,7 @@ function TDTest() {
                 return a.type.localeCompare(b.type) * dir
             })
         return result
-    }, [filterType, filterBrand, search, tdRange, sortKey, sortDir])
+    }, [filterType, filterBrand, debouncedSearch, tdRange, sortKey, sortDir])
 
     const avgTd = useMemo(() => {
         if (filteredAndSorted.length === 0) return 0
@@ -223,41 +233,76 @@ function TDTest() {
                                 </div>
                                 <div className="md:col-span-3">
                                     <label className="block text-xs font-semibold text-gray-700 mb-1">Search</label>
-                                    <input
-                                        type="text"
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                        placeholder="Brand or hex"
-                                        className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                            placeholder="Brand, type or hex"
+                                            className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500 pr-8"
+                                        />
+                                        {search && (
+                                            <button
+                                                onClick={() => setSearch('')}
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-4 w-4"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="md:col-span-6 flex items-center gap-3">
-                                    <div className="flex items-center gap-2">
-                                        <label className="text-xs font-semibold text-gray-700">Sort</label>
+                                    <div className="flex items-center gap-2 flex-1 md:flex-none">
+                                        <label className="text-xs font-semibold text-gray-700 whitespace-nowrap">Sort by</label>
                                         <select
-                                            className="rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                            value={sortKey}
-                                            onChange={(e) => setSortKey(e.target.value as SortKey)}
+                                            className="w-full md:w-auto rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
+                                            value={`${sortKey}-${sortDir}`}
+                                            onChange={(e) => {
+                                                const [key, dir] = e.target.value.split('-') as [SortKey, SortDir]
+                                                setSortKey(key)
+                                                setSortDir(dir)
+                                            }}
                                         >
-                                            <option value="td">TD</option>
-                                            <option value="brand">Brand</option>
-                                            <option value="type">Type</option>
-                                        </select>
-                                        <select
-                                            className="rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                            value={sortDir}
-                                            onChange={(e) => setSortDir(e.target.value as SortDir)}
-                                        >
-                                            <option value="asc">Asc</option>
-                                            <option value="desc">Desc</option>
+                                            <option value="td-desc">TD (High to Low)</option>
+                                            <option value="td-asc">TD (Low to High)</option>
+                                            <option value="brand-asc">Brand (A-Z)</option>
+                                            <option value="brand-desc">Brand (Z-A)</option>
+                                            <option value="type-asc">Type (A-Z)</option>
+                                            <option value="type-desc">Type (Z-A)</option>
                                         </select>
                                     </div>
                                     <div className="ml-auto flex items-center gap-2">
                                         <button
                                             onClick={resetFilters}
-                                            className="inline-flex items-center px-3 py-2 text-sm rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100"
+                                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150"
+                                            title="Reset all filters"
                                         >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="h-4 w-4 mr-1.5"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                                                />
+                                            </svg>
                                             Reset
                                         </button>
                                     </div>
