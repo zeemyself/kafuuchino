@@ -1,7 +1,11 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import NotFoundPage from '../components/NotFound'
+import ErrorPage from '../components/Error'
 
 export const Route = createRootRoute({
+	notFoundComponent: NotFoundPage,
+	errorComponent: ErrorPage,
 	component: () => (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
 			{/* Navigation Header */}

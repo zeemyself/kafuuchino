@@ -1,124 +1,90 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
 
 export const Route = createFileRoute('/')({
   component: Index,
 })
 
 function Index() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['hello'],
-    queryFn: async () => {
-      // Simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      return 'Hello from TanStack Query!'
-    }
-  })
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative px-8 py-16 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Kafuuchino</h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            React app with TanStack Router/Query and Tailwind CSS. Includes a Hueforge helper and a filament TD table.
-          </p>
-          
-          {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">TanStack Router</span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">React Query</span>
-            <span className="px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">Tailwind CSS</span>
-            <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">React 19</span>
+      <div className="relative bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+              <div className="sm:text-center lg:text-left">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                  <span className="block xl:inline">Welcome to</span>{' '}
+                  <span className="block text-blue-600 xl:inline">Rabbit House</span>
+                </h1>
+                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                  "Is the Order a Rabbit?"
+                </p>
+                <p className="mt-2 text-sm text-gray-400 sm:mt-3 sm:text-base sm:max-w-xl sm:mx-auto md:mt-3 md:text-lg lg:mx-0">
+                  Meet Kafuu Chino, the adorable granddaughter of the Rabbit House cafe's master.
+                </p>
+              </div>
+            </main>
           </div>
+        </div>
+        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+          <img
+            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+            src="/chino-hero.png"
+            alt="Kafuu Chino"
+          />
         </div>
       </div>
 
-      {/* Demo Section */}
-      <div className="px-8 pb-16">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">TanStack Query Demo</h2>
-            
-            <div className="space-y-4">
-              {isLoading && (
-                <div className="flex items-center justify-center p-8">
-                  <div className="flex items-center space-x-3">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                    <p className="text-gray-600 font-medium">Loading data...</p>
-                  </div>
-                </div>
-              )}
-              
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <p className="text-red-800 font-medium">Error: {error.message}</p>
-                  </div>
-                </div>
-              )}
-              
-              {data && (
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <p className="text-green-800 font-medium text-lg">{data}</p>
-                  </div>
-                </div>
-              )}
-            </div>
+      {/* About Section */}
+      <div className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:text-center">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Character Profile</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Kafuu Chino
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+              Chino is a cool and reserved middle school student with a soft spot for cute things. She works at the Rabbit House cafe and is known for her dedication and barista skills.
+            </p>
           </div>
-        </div>
-      </div>
 
-      {/* Features Grid */}
-      <div className="px-8 pb-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Features</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+          <div className="mt-10">
+            <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+              <div className="relative">
+                <dt>
+                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                    {/* Coffee Icon */}
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Barista Expert</p>
+                </dt>
+                <dd className="mt-2 ml-16 text-base text-gray-500">
+                  Master of latte art and various coffee blends. She takes her job very seriously.
+                </dd>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Fast</h3>
-              <p className="text-gray-600">Optimized navigation and data loading.</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
-                </svg>
+
+              <div className="relative">
+                <dt>
+                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                    {/* Rabbit Icon (using a simple shape for now) */}
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Tippy's Guardian</p>
+                </dt>
+                <dd className="mt-2 ml-16 text-base text-gray-500">
+                  Always seen with Tippy, the fluffy Angora rabbit who is actually her grandfather.
+                </dd>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Clean UI</h3>
-              <p className="text-gray-600">Built with Tailwind CSS.</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Type Safe</h3>
-              <p className="text-gray-600">TypeScript throughout.</p>
-            </div>
+            </dl>
           </div>
         </div>
       </div>
     </div>
   )
-} 
+}
+ 
