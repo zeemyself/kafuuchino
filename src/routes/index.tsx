@@ -80,11 +80,147 @@ function Index() {
                   Always seen with Tippy, the fluffy Angora rabbit who is actually her grandfather.
                 </dd>
               </div>
+
+              <div className="relative">
+                <dt>
+                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                    {/* Sun Icon */}
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">School Swimsuit</p>
+                </dt>
+                <dd className="mt-2 ml-16 text-base text-gray-500">
+                  Chino looks adorable in her school swimsuit, perfect for a summer day at the pool.
+                </dd>
+              </div>
             </dl>
+          </div>
+        </div>
+      </div>
+
+      {/* Gallery Section */}
+      <div className="py-12 bg-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Gallery</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Chino's Daily Life
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-coffee.png"
+                  alt="Chino making coffee"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Coffee Time
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Making the perfect blend</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-reading.png"
+                  alt="Chino reading"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Relaxing
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Enjoying a good book</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-smile.png"
+                  alt="Chino smiling"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Gentle Smile
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">A rare moment of joy</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-swimsuit.png"
+                  alt="Chino in school swimsuit"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Summer Fun
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Cooling off at the pool</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-swimsuit-sitting.png"
+                  alt="Chino sitting by the pool"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Poolside Relaxing
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Dipping feet in the cool water</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-swimsuit-floatie.png"
+                  alt="Chino with swim ring"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Pool Playtime
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Having fun with a swim ring</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   )
 }
- 
