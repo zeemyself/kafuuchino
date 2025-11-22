@@ -43,15 +43,15 @@ function ColorSwatch({ color, onCopy, copied }: { color: string; onCopy?: (hex: 
         <button
             type="button"
             onClick={() => onCopy?.(color)}
-            className="flex items-center space-x-3 group"
+            className="flex items-center gap-3 group transition-all hover:scale-105"
             title="Click to copy hex"
         >
             <div
-                className="w-6 h-6 rounded border border-gray-300 shadow-sm"
+                className="w-8 h-8 rounded-full border-2 border-white shadow-md ring-1 ring-gray-100"
                 style={{ backgroundColor: color }}
             />
-            <span className="font-mono text-sm text-gray-700 uppercase group-hover:underline">
-                {copied ? 'copied' : color}
+            <span className="font-mono text-xs text-gray-500 uppercase group-hover:text-gray-900 transition-colors">
+                {copied ? 'copied!' : color}
             </span>
         </button>
     )
@@ -60,14 +60,23 @@ function ColorSwatch({ color, onCopy, copied }: { color: string; onCopy?: (hex: 
 function TDGauge({ value }: { value: number }) {
     const percentage = ((value - TD_MIN) / (TD_MAX - TD_MIN)) * 100
     return (
-        <div className="flex items-center justify-center space-x-3">
-            <div className="w-36 h-2 rounded bg-gray-200 overflow-hidden">
+        <div className="flex items-center gap-3 w-full max-w-[200px]">
+            <div className="flex-1 h-2.5 rounded-full bg-gray-100 overflow-hidden shadow-inner">
                 <div
-                    className="h-2 rounded bg-gradient-to-r from-yellow-400 to-orange-500"
-                    style={{ width: `${Math.max(0, Math.min(100, percentage))}%` }}
+                    className="h-full rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-rose-500 transition-all duration-500 ease-out"
+                    style={{ width: `${Math.max(5, Math.min(100, percentage))}%` }}
                 />
             </div>
-            <span className="text-sm font-semibold text-gray-800 tabular-nums">{value.toFixed(1)}</span>
+            <span className="text-sm font-bold text-gray-700 tabular-nums w-10 text-right">{value.toFixed(1)}</span>
+        </div>
+    )
+}
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+    if (!active) return <div className="w-4 h-4 text-gray-300 opacity-0 group-hover:opacity-50 transition-opacity">↕</div>
+    return (
+        <div className="w-4 h-4 text-orange-500 transition-transform duration-200">
+            {dir === 'asc' ? '↑' : '↓'}
         </div>
     )
 }
@@ -134,11 +143,9 @@ function TDTest() {
             setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
         } else {
             setSortKey(key)
-            setSortDir(key === 'td' ? 'desc' : 'asc')
+            setSortDir(key === 'td' ? 'desc' : 'asc') // Default TD to desc (high transmission first usually interesting)
         }
     }
-
-    // Removed CSV export functionality per request
 
     function handleCopyHex(hex: string) {
         navigator.clipboard?.writeText(hex).then(() => {
@@ -148,271 +155,267 @@ function TDTest() {
     }
 
     return (
-        <div className="min-h-screen">
-			{/* Header */}
-			<div className="px-8 py-12 text-center bg-gradient-to-r from-yellow-50 to-orange-50">
-				<div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Filament TD Table</h1>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                        Light transmission measurements for filaments using the{' '}
-						<a
-							href="https://www.printables.com/model/552566-official-hueforge-td-step-test-and-light-box"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-orange-600 hover:text-orange-700 underline"
-						>
-							Official HueForge TD Step Test
-						</a>{' '}
-                        method.
-					</p>
-				</div>
-			</div>
+        <div className="min-h-screen bg-gray-50/50 font-sans text-gray-900">
+            {/* Hero Header */}
+            <div className="relative bg-white border-b border-gray-200 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-yellow-50 opacity-60" />
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+                    <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600">
+                            Filament TD
+                        </span>{' '}
+                        Library
+                    </h1>
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                        Precise light transmission data for your 3D printing projects.
+                        Based on the{' '}
+                        <a
+                            href="https://www.printables.com/model/552566-official-hueforge-td-step-test-and-light-box"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-orange-600 hover:text-orange-700 underline decoration-2 decoration-orange-200 hover:decoration-orange-600 transition-all"
+                        >
+                            HueForge Step Test
+                        </a>.
+                    </p>
+                </div>
+            </div>
 
-            {/* Main Content */}
-            <div className="px-4 sm:px-6 lg:px-8 py-12">
-				<div className="max-w-6xl mx-auto">
-                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                        {/* Toolbar */}
-                        <div className="p-4 bg-gray-50 border-b border-gray-100">
-                            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                                <div className="md:col-span-3">
-                                    <label className="block text-xs font-semibold text-gray-700 mb-1">Type</label>
-                                    <select
-                                        className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                        value={filterType}
-                                        onChange={(e) => setFilterType(e.target.value)}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 -mt-8">
+                {/* Controls Card */}
+                <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 p-6 mb-8 backdrop-blur-xl bg-white/80 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        {/* Search */}
+                        <div className="md:col-span-4">
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Search</label>
+                            <div className="relative group">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg className="h-5 w-5 text-gray-400 group-focus-within:text-orange-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="text"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    placeholder="Search brand, type, or color..."
+                                    className="block w-full pl-10 pr-10 py-2.5 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all bg-gray-50 focus:bg-white"
+                                />
+                                {search && (
+                                    <button
+                                        onClick={() => setSearch('')}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                                     >
-                                        {types.map((t) => (
-                                            <option key={t} value={t}>
-                                                {t}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="md:col-span-3">
-                                    <label className="block text-xs font-semibold text-gray-700 mb-1">Brand</label>
-                                    <select
-                                        className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                        value={filterBrand}
-                                        onChange={(e) => setFilterBrand(e.target.value)}
-                                    >
-                                        {brands.map((b) => (
-                                            <option key={b} value={b}>
-                                                {b}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="md:col-span-3">
-                                    <label className="block text-xs font-semibold text-gray-700 mb-1">TD range</label>
-                                    <div className="flex items-center space-x-2">
-                                        <input
-                                            type="number"
-                                            step="0.1"
-                                            min={TD_MIN}
-                                            max={tdRange[1]}
-                                            value={tdRange[0]}
-                                            onChange={(e) =>
-                                                setTdRange([Math.min(Number(e.target.value), tdRange[1]), tdRange[1]])
-                                            }
-                                            className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                        />
-                                        <span className="text-gray-400">–</span>
-                                        <input
-                                            type="number"
-                                            step="0.1"
-                                            min={tdRange[0]}
-                                            max={TD_MAX}
-                                            value={tdRange[1]}
-                                            onChange={(e) =>
-                                                setTdRange([tdRange[0], Math.max(Number(e.target.value), tdRange[0])])
-                                            }
-                                            className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="md:col-span-3">
-                                    <label className="block text-xs font-semibold text-gray-700 mb-1">Search</label>
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            value={search}
-                                            onChange={(e) => setSearch(e.target.value)}
-                                            placeholder="Brand, type or hex"
-                                            className="w-full rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500 pr-8"
-                                        />
-                                        {search && (
-                                            <button
-                                                onClick={() => setSearch('')}
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    className="h-4 w-4"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="md:col-span-6 flex items-center gap-3">
-                                    <div className="flex items-center gap-2 flex-1 md:flex-none">
-                                        <label className="text-xs font-semibold text-gray-700 whitespace-nowrap">Sort by</label>
-                                        <select
-                                            className="w-full md:w-auto rounded-md border-gray-300 text-sm focus:ring-yellow-500 focus:border-yellow-500"
-                                            value={`${sortKey}-${sortDir}`}
-                                            onChange={(e) => {
-                                                const [key, dir] = e.target.value.split('-') as [SortKey, SortDir]
-                                                setSortKey(key)
-                                                setSortDir(dir)
-                                            }}
-                                        >
-                                            <option value="td-desc">TD (High to Low)</option>
-                                            <option value="td-asc">TD (Low to High)</option>
-                                            <option value="brand-asc">Brand (A-Z)</option>
-                                            <option value="brand-desc">Brand (Z-A)</option>
-                                            <option value="type-asc">Type (A-Z)</option>
-                                            <option value="type-desc">Type (Z-A)</option>
-                                        </select>
-                                    </div>
-                                    <div className="ml-auto flex items-center gap-2">
-                                        <button
-                                            onClick={resetFilters}
-                                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150"
-                                            title="Reset all filters"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="h-4 w-4 mr-1.5"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                                                />
-                                            </svg>
-                                            Reset
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="md:col-span-6 text-sm text-gray-600 md:text-right">
-                                    Showing {filteredAndSorted.length} of {filamentData.length} • Avg TD {avgTd.toFixed(1)}
-                                </div>
+                                        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                )}
                             </div>
                         </div>
-						{/* Desktop Table */}
-                        <div className="hidden md:block overflow-x-auto">
-                            <table className="w-full">
-                                <thead className="sticky top-0 z-10">
-                                    <tr className="bg-gradient-to-r from-yellow-50 to-orange-50/90 backdrop-blur border-b border-gray-200">
-                                        <th
-                                            className="px-8 py-4 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider w-1/6 cursor-pointer select-none"
-                                            onClick={() => toggleSort('type')}
-                                        >
-                                            Type {sortKey === 'type' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                                        </th>
-                                        <th className="px-8 py-4 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider w-2/5">
-                                            Color
-                                        </th>
-                                        <th
-                                            className="px-8 py-4 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider w-1/4 cursor-pointer select-none"
-                                            onClick={() => toggleSort('brand')}
-                                        >
-                                            Brand {sortKey === 'brand' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                                        </th>
-                                        <th
-                                            className="px-8 py-4 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider w-1/6 cursor-pointer select-none"
-                                            onClick={() => toggleSort('td')}
-                                        >
-                                            TD {sortKey === 'td' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200">
-                                    {filteredAndSorted.map((filament, index) => (
-                                        <tr key={`${filament.brand}-${filament.color}-${index}`} className="hover:bg-gray-50 transition-colors duration-150">
-                                            <td className="px-8 py-5 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {filament.type}
-                                            </td>
-                                            <td className="px-8 py-5 whitespace-nowrap">
-                                                <ColorSwatch color={filament.color} onCopy={handleCopyHex} copied={copiedHex === filament.color} />
-                                            </td>
-                                            <td className="px-8 py-5 whitespace-nowrap text-sm text-gray-700 font-medium">
-                                                {filament.brand}
-                                            </td>
-                                            <td className="px-8 py-5 whitespace-nowrap text-center">
-                                                <TDGauge value={filament.td} />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+
+                        {/* Filters */}
+                        <div className="md:col-span-2">
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Type</label>
+                            <select
+                                className="block w-full py-2.5 pl-3 pr-10 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50 focus:bg-white transition-all"
+                                value={filterType}
+                                onChange={(e) => setFilterType(e.target.value)}
+                            >
+                                {types.map((t) => <option key={t} value={t}>{t}</option>)}
+                            </select>
+                        </div>
+                        <div className="md:col-span-2">
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Brand</label>
+                            <select
+                                className="block w-full py-2.5 pl-3 pr-10 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50 focus:bg-white transition-all"
+                                value={filterBrand}
+                                onChange={(e) => setFilterBrand(e.target.value)}
+                            >
+                                {brands.map((b) => <option key={b} value={b}>{b}</option>)}
+                            </select>
                         </div>
 
-						{/* Mobile Cards */}
-                        <div className="md:hidden divide-y divide-gray-200">
-                            {filteredAndSorted.map((filament, index) => (
-                                <div key={`${filament.brand}-${filament.color}-${index}`} className="p-6 hover:bg-gray-50 transition-colors duration-150">
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between items-start">
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-gray-900">{filament.type}</h3>
-                                                <p className="text-sm text-gray-600 font-medium">{filament.brand}</p>
+                        {/* Range */}
+                        <div className="md:col-span-4">
+                            <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                TD Range <span className="text-gray-400 font-normal ml-1">({tdRange[0]} - {tdRange[1]})</span>
+                            </label>
+                            <div className="flex items-center gap-3">
+                                <input
+                                    type="range"
+                                    min={TD_MIN}
+                                    max={TD_MAX}
+                                    step={0.1}
+                                    value={tdRange[0]}
+                                    onChange={(e) => {
+                                        const val = Number(e.target.value)
+                                        if (val <= tdRange[1]) setTdRange([val, tdRange[1]])
+                                    }}
+                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                                />
+                                <input
+                                    type="range"
+                                    min={TD_MIN}
+                                    max={TD_MAX}
+                                    step={0.1}
+                                    value={tdRange[1]}
+                                    onChange={(e) => {
+                                        const val = Number(e.target.value)
+                                        if (val >= tdRange[0]) setTdRange([tdRange[0], val])
+                                    }}
+                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Active Filters & Stats */}
+                    <div className="mt-6 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-gray-500">
+                                {filteredAndSorted.length} results
+                            </span>
+                            <span className="w-1 h-1 rounded-full bg-gray-300" />
+                            <span className="text-sm font-medium text-gray-500">
+                                Avg TD: <span className="text-gray-900">{avgTd.toFixed(1)}</span>
+                            </span>
+                        </div>
+                        
+                        {(filterType !== 'All' || filterBrand !== 'All' || search || tdRange[0] !== TD_MIN || tdRange[1] !== TD_MAX) && (
+                            <button
+                                onClick={resetFilters}
+                                className="text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5"
+                            >
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Clear Filters
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Content */}
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                    {/* Desktop Table */}
+                    <div className="hidden md:block overflow-x-auto">
+                        <table className="w-full">
+                            <thead>
+                                <tr className="bg-gray-50/50 border-b border-gray-200">
+                                    {[
+                                        { key: 'type', label: 'Material', width: 'w-1/6' },
+                                        { key: 'color', label: 'Color', width: 'w-1/4', noSort: true },
+                                        { key: 'brand', label: 'Brand', width: 'w-1/4' },
+                                        { key: 'td', label: 'Transmission Distance', width: 'w-1/3' },
+                                    ].map((col) => (
+                                        <th
+                                            key={col.key}
+                                            className={`px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider ${col.width} ${!col.noSort ? 'cursor-pointer hover:bg-gray-100/50 hover:text-orange-600' : ''} transition-colors group select-none`}
+                                            onClick={() => !col.noSort && toggleSort(col.key as SortKey)}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                {col.label}
+                                                {!col.noSort && (
+                                                    <SortIcon active={sortKey === col.key} dir={sortDir} />
+                                                )}
                                             </div>
-                                            <div className="flex flex-col items-end gap-2">
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-800 shadow-sm">
-                                                    TD: {filament.td}
-                                                </span>
-                                                <div>
-                                                    <TDGauge value={filament.td} />
-                                                </div>
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100">
+                                {filteredAndSorted.map((filament, index) => (
+                                    <tr 
+                                        key={`${filament.brand}-${filament.color}-${index}`} 
+                                        className="hover:bg-orange-50/30 transition-colors group"
+                                    >
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 group-hover:bg-white group-hover:shadow-sm transition-all">
+                                                {filament.type}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="flex items-center gap-3">
+                                                <ColorSwatch color={filament.color} onCopy={handleCopyHex} copied={copiedHex === filament.color} />
                                             </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className="text-sm font-medium text-gray-900">{filament.brand}</span>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <TDGauge value={filament.td} />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {filteredAndSorted.length === 0 && (
+                            <div className="p-12 text-center text-gray-500">
+                                No filaments found matching your criteria.
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Mobile Cards */}
+                    <div className="md:hidden divide-y divide-gray-100">
+                        {/* Mobile Sort Control */}
+                        <div className="p-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+                            <span className="text-xs font-bold text-gray-500 uppercase">Sort By</span>
+                            <select
+                                className="text-sm border-none bg-transparent font-medium text-gray-900 focus:ring-0 cursor-pointer"
+                                value={`${sortKey}-${sortDir}`}
+                                onChange={(e) => {
+                                    const [key, dir] = e.target.value.split('-') as [SortKey, SortDir]
+                                    setSortKey(key)
+                                    setSortDir(dir)
+                                }}
+                            >
+                                <option value="td-desc">Highest TD</option>
+                                <option value="td-asc">Lowest TD</option>
+                                <option value="brand-asc">Brand (A-Z)</option>
+                                <option value="type-asc">Type (A-Z)</option>
+                            </select>
+                        </div>
+
+                        {filteredAndSorted.map((filament, index) => (
+                            <div key={`${filament.brand}-${filament.color}-${index}`} className="p-5 hover:bg-gray-50 transition-colors">
+                                <div className="flex items-start justify-between mb-4">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="text-base font-bold text-gray-900">{filament.brand}</h3>
+                                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600">
+                                                {filament.type}
+                                            </span>
                                         </div>
                                         <ColorSwatch color={filament.color} onCopy={handleCopyHex} copied={copiedHex === filament.color} />
                                     </div>
+                                    <div className="text-right">
+                                        <div className="text-2xl font-bold text-gray-900 tracking-tight">{filament.td}</div>
+                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">TD Value</div>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-					</div>
+                                <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div
+                                        className="h-full rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-rose-500"
+                                        style={{ width: `${((filament.td - TD_MIN) / (TD_MAX - TD_MIN)) * 100}%` }}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
-					{/* Disclaimer */}
-					<div className="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-xl">
-						<div className="flex items-start space-x-3">
-							<svg
-								className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-								/>
-							</svg>
-							<div>
-								<h3 className="text-sm font-semibold text-yellow-800 mb-1">Disclaimer</h3>
-								<p className="text-sm text-yellow-700">
-									Light transmission properties may vary between manufacturing batches. These measurements are provided for reference only and your results may vary.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
-} 
+                {/* Footer Disclaimer */}
+                <div className="mt-8 flex items-start gap-3 p-4 rounded-xl bg-yellow-50/50 border border-yellow-100 text-yellow-800 text-sm">
+                    <svg className="w-5 h-5 flex-shrink-0 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>
+                        Light transmission properties may vary between manufacturing batches. These measurements are provided for reference only.
+                    </p>
+                </div>
+            </div>
+        </div>
+    )
+}
