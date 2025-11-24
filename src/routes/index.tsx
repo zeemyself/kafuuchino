@@ -95,6 +95,21 @@ function Index() {
                   Chino looks adorable in her school swimsuit, perfect for a summer day at the pool.
                 </dd>
               </div>
+
+              <div className="relative">
+                <dt>
+                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                    {/* Moon Icon */}
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                  </div>
+                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Camisole</p>
+                </dt>
+                <dd className="mt-2 ml-16 text-base text-gray-500">
+                  Chino wears a cute camisole for sleeping, looking relaxed and comfortable.
+                </dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -215,6 +230,24 @@ function Index() {
                     Pool Playtime
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">Having fun with a swim ring</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative">
+              <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <img
+                  src="/chino-camisole.png"
+                  alt="Chino in camisole"
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    Relaxing Night
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">Ready for a good night's sleep</p>
                 </div>
               </div>
             </div>
