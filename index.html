@@ -1,15 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/chino-favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kafuuchino: a small React app with TanStack Router/Query, a Hueforge helper, and a filament TD table." />
-    <meta name="theme-color" content="#3b82f6" />
-    <title>Kafuuchino</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/chino-favicon.png" />
+  <script>
+    try {
+      const favicons = ['/chino-favicon.png', '/chino_favicon_2.png'];
+      const randomIndex = Math.floor(Math.random() * favicons.length);
+      const selectedFavicon = favicons[randomIndex];
+      const link = document.querySelector("link[rel~='icon']");
+      if (link) {
+        link.href = selectedFavicon;
+      }
+    } catch (e) {
+      console.error('Failed to set random favicon', e);
+    }
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Kafuuchino: a small React app with TanStack Router/Query, a Hueforge helper, and a filament TD table." />
+  <meta name="theme-color" content="#3b82f6" />
+  <title>Kafuuchino</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
