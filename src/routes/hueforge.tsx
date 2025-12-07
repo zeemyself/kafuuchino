@@ -40,10 +40,10 @@ function Hueforge() {
 			const blob = new Blob(
 				[
 					'<?xml version="1.0" encoding="UTF-8"?>\n<model xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02">\n  <!-- Generated Hueforge 3MF file -->\n  <!-- Text: ' +
-						textInput.substring(0, 100) +
-						'... -->\n  <!-- Source STL: ' +
-						stlFile.name +
-						' -->\n</model>',
+					textInput.substring(0, 100) +
+					'... -->\n  <!-- Source STL: ' +
+					stlFile.name +
+					' -->\n</model>',
 				],
 				{ type: 'application/vnd.ms-package.3dmanufacturing-3dmodel+xml' },
 			)
@@ -65,7 +65,7 @@ function Hueforge() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
 			{/* Header */}
 			<div className="px-8 py-12 text-center bg-gradient-to-r from-orange-50 to-red-50">
 				<div className="max-w-4xl mx-auto">
@@ -74,20 +74,20 @@ function Hueforge() {
 							Hueforge Generator
 						</span>
 					</h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">Convert an STL into a 3MF with embedded text.</p>
+					<p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Convert an STL into a 3MF with embedded text.</p>
 				</div>
 			</div>
 
 			{/* Main Content */}
 			<div className="px-8 py-12">
 				<div className="max-w-4xl mx-auto">
-					<div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12">
+					<div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 p-8 md:p-12 transition-colors duration-200">
 						<div className="space-y-8">
 							{/* Text Input */}
 							<div>
 								<label
 									htmlFor="text-input"
-									className="block text-lg font-semibold text-gray-800 mb-3"
+									className="block text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3"
 								>
 									Text Content
 								</label>
@@ -95,11 +95,11 @@ function Hueforge() {
 									id="text-input"
 									value={textInput}
 									onChange={(e) => setTextInput(e.target.value)}
-                                    placeholder="Enter text to embed in the generated 3MF"
-									className="w-full h-40 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+									placeholder="Enter text to embed in the generated 3MF"
+									className="w-full h-40 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white dark:bg-slate-700 dark:text-gray-100 dark:placeholder-gray-400 transition-all duration-200"
 									rows={6}
 								/>
-								<p className="text-sm text-gray-500 mt-2">
+								<p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
 									{textInput.length} characters
 								</p>
 							</div>
@@ -108,7 +108,7 @@ function Hueforge() {
 							<div>
 								<label
 									htmlFor="stl-file"
-									className="block text-lg font-semibold text-gray-800 mb-3"
+									className="block text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3"
 								>
 									STL File
 								</label>
@@ -118,11 +118,11 @@ function Hueforge() {
 										type="file"
 										accept=".stl"
 										onChange={handleFileChange}
-										className="w-full px-4 py-3 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-600 hover:file:bg-orange-100 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+										className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 dark:file:bg-orange-900/40 file:text-orange-600 dark:file:text-orange-400 hover:file:bg-orange-100 dark:hover:file:bg-orange-900/60 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white dark:bg-slate-700 dark:text-gray-100 transition-all duration-200"
 									/>
 								</div>
 								{stlFile && (
-									<p className="text-sm text-green-600 mt-2 flex items-center">
+									<p className="text-sm text-green-600 dark:text-green-400 mt-2 flex items-center">
 										<svg
 											className="w-4 h-4 mr-1"
 											fill="none"
@@ -143,7 +143,7 @@ function Hueforge() {
 							</div>
 
 							{/* Generate Button */}
-                            <div className="pt-4">
+							<div className="pt-4">
 								<button
 									onClick={handleGenerate}
 									disabled={isGenerating || !textInput.trim() || !stlFile}
@@ -171,7 +171,7 @@ function Hueforge() {
 													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 												></path>
 											</svg>
-                                            <span>Generating…</span>
+											<span>Generating…</span>
 										</>
 									) : (
 										<>
@@ -188,14 +188,14 @@ function Hueforge() {
 													d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
 												/>
 											</svg>
-                                            <span>Generate 3MF</span>
+											<span>Generate 3MF</span>
 										</>
 									)}
 								</button>
 							</div>
 
 							{/* Info Section */}
-							<div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mt-8">
+							<div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-lg p-6 mt-8">
 								<div className="flex items-start space-x-3">
 									<svg
 										className="w-6 h-6 text-orange-600 flex-shrink-0 mt-0.5"
@@ -211,10 +211,10 @@ function Hueforge() {
 										/>
 									</svg>
 									<div>
-										<h3 className="font-semibold text-orange-800 mb-1">
+										<h3 className="font-semibold text-orange-800 dark:text-orange-200 mb-1">
 											How it works
 										</h3>
-                                        <p className="text-orange-700 text-sm">Upload an STL and enter text. We return a demo 3MF file with that text embedded.</p>
+										<p className="text-orange-700 dark:text-orange-300 text-sm">Upload an STL and enter text. We return a demo 3MF file with that text embedded.</p>
 									</div>
 								</div>
 							</div>
