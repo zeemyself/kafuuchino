@@ -1,36 +1,35 @@
 {
-  "name": "kafuuchino",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "@tanstack/react-query": "^5.90.2",
-    "@tanstack/react-query-devtools": "^5.90.2",
-    "@tanstack/react-router": "^1.154.2",
-    "@tanstack/router-devtools": "^1.154.2",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.13"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@tanstack/router-plugin": "^1.154.2",
-    "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
-    "@vitejs/plugin-react": "^5.0.4",
-    "eslint": "^9.36.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.22",
-    "globals": "^16.4.0",
-    "typescript": "~5.9.2",
-    "typescript-eslint": "^8.45.0",
-    "vite": "^7.1.11"
-  }
+	"name": "kafuuchino",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "oxlint",
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.13",
+		"@tanstack/react-query": "^5.90.2",
+		"@tanstack/react-query-devtools": "^5.90.2",
+		"@tanstack/react-router": "^1.154.2",
+		"@tanstack/router-devtools": "^1.154.2",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"tailwindcss": "^4.1.13"
+	},
+	"devDependencies": {
+		"@tanstack/router-plugin": "^1.154.2",
+		"@types/react": "^19.1.16",
+		"@types/react-dom": "^19.1.9",
+		"@vitejs/plugin-react": "^5.0.4",
+		"globals": "^16.4.0",
+		"oxfmt": "^0.26.0",
+		"oxlint": "^1.41.0",
+		"typescript": "~5.9.2",
+		"vite": "^7.1.11"
+	}
 }

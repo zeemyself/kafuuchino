@@ -40,10 +40,10 @@ function Hueforge() {
 			const blob = new Blob(
 				[
 					'<?xml version="1.0" encoding="UTF-8"?>\n<model xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02">\n  <!-- Generated Hueforge 3MF file -->\n  <!-- Text: ' +
-					textInput.substring(0, 100) +
-					'... -->\n  <!-- Source STL: ' +
-					stlFile.name +
-					' -->\n</model>',
+						textInput.substring(0, 100) +
+						'... -->\n  <!-- Source STL: ' +
+						stlFile.name +
+						' -->\n</model>',
 				],
 				{ type: 'application/vnd.ms-package.3dmanufacturing-3dmodel+xml' },
 			)
@@ -74,7 +74,9 @@ function Hueforge() {
 							Hueforge Generator
 						</span>
 					</h1>
-					<p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Convert an STL into a 3MF with embedded text.</p>
+					<p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+						Convert an STL into a 3MF with embedded text.
+					</p>
 				</div>
 			</div>
 
@@ -214,7 +216,10 @@ function Hueforge() {
 										<h3 className="font-semibold text-orange-800 dark:text-orange-200 mb-1">
 											How it works
 										</h3>
-										<p className="text-orange-700 dark:text-orange-300 text-sm">Upload an STL and enter text. We return a demo 3MF file with that text embedded.</p>
+										<p className="text-orange-700 dark:text-orange-300 text-sm">
+											Upload an STL and enter text. We return a demo 3MF file
+											with that text embedded.
+										</p>
 									</div>
 								</div>
 							</div>
