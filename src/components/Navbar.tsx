@@ -1,4 +1,5 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 interface NavLink {
@@ -101,6 +102,45 @@ const links: NavLink[] = [
 ]
 
 export function Navbar() {
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+	const menuRef = useRef<HTMLDivElement>(null)
+	const buttonRef = useRef<HTMLButtonElement>(null)
+	const routerState = useRouterState()
+
+	// Close mobile menu on route change
+	useEffect(() => {
+		setMobileMenuOpen(false)
+	}, [routerState.location.pathname])
+
+	// Close mobile menu when clicking outside
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (
+				mobileMenuOpen &&
+				menuRef.current &&
+				buttonRef.current &&
+				!menuRef.current.contains(event.target as Node) &&
+				!buttonRef.current.contains(event.target as Node)
+			) {
+				setMobileMenuOpen(false)
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [mobileMenuOpen])
+
+	// Close mobile menu on Escape key
+	useEffect(() => {
+		function handleEscape(event: KeyboardEvent) {
+			if (event.key === 'Escape' && mobileMenuOpen) {
+				setMobileMenuOpen(false)
+				buttonRef.current?.focus()
+			}
+		}
+		document.addEventListener('keydown', handleEscape)
+		return () => document.removeEventListener('keydown', handleEscape)
+	}, [mobileMenuOpen])
+
 	return (
 		<nav className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border-b border-white/20 dark:border-white/10 transition-colors duration-200">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,8 +152,8 @@ export function Navbar() {
 						</h1>
 					</div>
 
-					{/* Navigation Links */}
-					<div className="flex space-x-8">
+					{/* Desktop Navigation Links */}
+					<div className="hidden md:flex space-x-4 lg:space-x-8">
 						{links.map((link) => (
 							<Link
 								key={link.to}
@@ -125,6 +165,63 @@ export function Navbar() {
 							</Link>
 						))}
 					</div>
+
+					{/* Mobile Hamburger Button */}
+					<button
+						ref={buttonRef}
+						type="button"
+						onClick={() => setMobileMenuOpen((prev) => !prev)}
+						className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						aria-expanded={mobileMenuOpen}
+						aria-controls="mobile-menu"
+						aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+					>
+						{/* Hamburger / X icon with transition */}
+						<svg
+							className="w-6 h-6"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							{mobileMenuOpen ? (
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							) : (
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M4 6h16M4 12h16M4 18h16"
+								/>
+							)}
+						</svg>
+					</button>
+				</div>
+			</div>
+
+			{/* Mobile Menu Panel */}
+			<div
+				ref={menuRef}
+				id="mobile-menu"
+				className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+					mobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+				}`}
+			>
+				<div className="px-4 pt-2 pb-4 space-y-1 border-t border-gray-200/50 dark:border-white/10">
+					{links.map((link) => (
+						<Link
+							key={link.to}
+							to={link.to}
+							className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${link.hoverColorClass} ${link.activeColorClass} [&.active]:text-white [&.active]:shadow-lg dark:text-gray-300`}
+						>
+							{link.icon}
+							{link.label}
+						</Link>
+					))}
 				</div>
 			</div>
 		</nav>

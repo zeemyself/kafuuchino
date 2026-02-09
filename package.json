@@ -26,7 +26,6 @@
 		"@types/react": "^19.1.16",
 		"@types/react-dom": "^19.1.9",
 		"@vitejs/plugin-react": "^5.0.4",
-		"globals": "^16.4.0",
 		"oxfmt": "^0.26.0",
 		"oxlint": "^1.41.0",
 		"typescript": "~5.9.2",
