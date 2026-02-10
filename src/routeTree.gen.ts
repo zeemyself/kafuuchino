@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // @ts-nocheck
 
 // noinspection JSUnusedGlobalSymbols
@@ -9,103 +11,121 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TdTestRouteImport } from './routes/td-test'
 import { Route as HueforgeRouteImport } from './routes/hueforge'
+import { Route as FriendsRouteImport } from './routes/friends'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TdTestRoute = TdTestRouteImport.update({
-	id: '/td-test',
-	path: '/td-test',
-	getParentRoute: () => rootRouteImport,
+  id: '/td-test',
+  path: '/td-test',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const HueforgeRoute = HueforgeRouteImport.update({
-	id: '/hueforge',
-	path: '/hueforge',
-	getParentRoute: () => rootRouteImport,
+  id: '/hueforge',
+  path: '/hueforge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FriendsRoute = FriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
-	id: '/about',
-	path: '/about',
-	getParentRoute: () => rootRouteImport,
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
-	id: '/',
-	path: '/',
-	getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-	'/': typeof IndexRoute
-	'/about': typeof AboutRoute
-	'/hueforge': typeof HueforgeRoute
-	'/td-test': typeof TdTestRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/friends': typeof FriendsRoute
+  '/hueforge': typeof HueforgeRoute
+  '/td-test': typeof TdTestRoute
 }
 export interface FileRoutesByTo {
-	'/': typeof IndexRoute
-	'/about': typeof AboutRoute
-	'/hueforge': typeof HueforgeRoute
-	'/td-test': typeof TdTestRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/friends': typeof FriendsRoute
+  '/hueforge': typeof HueforgeRoute
+  '/td-test': typeof TdTestRoute
 }
 export interface FileRoutesById {
-	__root__: typeof rootRouteImport
-	'/': typeof IndexRoute
-	'/about': typeof AboutRoute
-	'/hueforge': typeof HueforgeRoute
-	'/td-test': typeof TdTestRoute
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/friends': typeof FriendsRoute
+  '/hueforge': typeof HueforgeRoute
+  '/td-test': typeof TdTestRoute
 }
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath
-	fullPaths: '/' | '/about' | '/hueforge' | '/td-test'
-	fileRoutesByTo: FileRoutesByTo
-	to: '/' | '/about' | '/hueforge' | '/td-test'
-	id: '__root__' | '/' | '/about' | '/hueforge' | '/td-test'
-	fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/about' | '/friends' | '/hueforge' | '/td-test'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/about' | '/friends' | '/hueforge' | '/td-test'
+  id: '__root__' | '/' | '/about' | '/friends' | '/hueforge' | '/td-test'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-	IndexRoute: typeof IndexRoute
-	AboutRoute: typeof AboutRoute
-	HueforgeRoute: typeof HueforgeRoute
-	TdTestRoute: typeof TdTestRoute
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  FriendsRoute: typeof FriendsRoute
+  HueforgeRoute: typeof HueforgeRoute
+  TdTestRoute: typeof TdTestRoute
 }
 
 declare module '@tanstack/react-router' {
-	interface FileRoutesByPath {
-		'/td-test': {
-			id: '/td-test'
-			path: '/td-test'
-			fullPath: '/td-test'
-			preLoaderRoute: typeof TdTestRouteImport
-			parentRoute: typeof rootRouteImport
-		}
-		'/hueforge': {
-			id: '/hueforge'
-			path: '/hueforge'
-			fullPath: '/hueforge'
-			preLoaderRoute: typeof HueforgeRouteImport
-			parentRoute: typeof rootRouteImport
-		}
-		'/about': {
-			id: '/about'
-			path: '/about'
-			fullPath: '/about'
-			preLoaderRoute: typeof AboutRouteImport
-			parentRoute: typeof rootRouteImport
-		}
-		'/': {
-			id: '/'
-			path: '/'
-			fullPath: '/'
-			preLoaderRoute: typeof IndexRouteImport
-			parentRoute: typeof rootRouteImport
-		}
-	}
+  interface FileRoutesByPath {
+    '/td-test': {
+      id: '/td-test'
+      path: '/td-test'
+      fullPath: '/td-test'
+      preLoaderRoute: typeof TdTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hueforge': {
+      id: '/hueforge'
+      path: '/hueforge'
+      fullPath: '/hueforge'
+      preLoaderRoute: typeof HueforgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/friends': {
+      id: '/friends'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof FriendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-	IndexRoute: IndexRoute,
-	AboutRoute: AboutRoute,
-	HueforgeRoute: HueforgeRoute,
-	TdTestRoute: TdTestRoute,
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  FriendsRoute: FriendsRoute,
+  HueforgeRoute: HueforgeRoute,
+  TdTestRoute: TdTestRoute,
 }
 export const routeTree = rootRouteImport
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>()
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
