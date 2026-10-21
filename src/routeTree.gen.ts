@@ -9,25 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TdTestRouteImport } from './routes/td-test'
-import { Route as HueforgeRouteImport } from './routes/hueforge'
-import { Route as FriendsRouteImport } from './routes/friends'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as FriendsRouteImport } from './routes/friends'
+import { Route as HueforgeRouteImport } from './routes/hueforge'
+import { Route as TdTestRouteImport } from './routes/td-test'
 
-const TdTestRoute = TdTestRouteImport.update({
-  id: '/td-test',
-  path: '/td-test',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HueforgeRoute = HueforgeRouteImport.update({
-  id: '/hueforge',
-  path: '/hueforge',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FriendsRoute = FriendsRouteImport.update({
-  id: '/friends',
-  path: '/friends',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -35,9 +25,19 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FriendsRoute = FriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HueforgeRoute = HueforgeRouteImport.update({
+  id: '/hueforge',
+  path: '/hueforge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TdTestRoute = TdTestRouteImport.update({
+  id: '/td-test',
+  path: '/td-test',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -81,25 +81,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/td-test': {
-      id: '/td-test'
-      path: '/td-test'
-      fullPath: '/td-test'
-      preLoaderRoute: typeof TdTestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hueforge': {
-      id: '/hueforge'
-      path: '/hueforge'
-      fullPath: '/hueforge'
-      preLoaderRoute: typeof HueforgeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/friends': {
-      id: '/friends'
-      path: '/friends'
-      fullPath: '/friends'
-      preLoaderRoute: typeof FriendsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -109,11 +95,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/friends': {
+      id: '/friends'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof FriendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hueforge': {
+      id: '/hueforge'
+      path: '/hueforge'
+      fullPath: '/hueforge'
+      preLoaderRoute: typeof HueforgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/td-test': {
+      id: '/td-test'
+      path: '/td-test'
+      fullPath: '/td-test'
+      preLoaderRoute: typeof TdTestRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
