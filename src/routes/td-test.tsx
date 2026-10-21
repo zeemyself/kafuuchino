@@ -417,9 +417,9 @@ function TDTest() {
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-gray-100">
-								{filteredAndSorted.map((filament, index) => (
+								{filteredAndSorted.map((filament) => (
 									<tr
-										key={`${filament.brand}-${filament.color}-${index}`}
+										key={`${filament.brand}-${filament.color}-${filament.type}-${filament.td}`}
 										className="hover:bg-orange-50/30 dark:hover:bg-orange-900/20 transition-colors group"
 									>
 										<td className="px-6 py-4 whitespace-nowrap">
@@ -481,9 +481,9 @@ function TDTest() {
 							</select>
 						</div>
 
-						{filteredAndSorted.map((filament, index) => (
+						{filteredAndSorted.map((filament) => (
 							<div
-								key={`${filament.brand}-${filament.color}-${index}`}
+								key={`${filament.brand}-${filament.color}-${filament.type}-${filament.td}`}
 								className="p-5 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors"
 							>
 								<div className="flex items-start justify-between mb-4">

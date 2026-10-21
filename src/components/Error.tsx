@@ -3,6 +3,17 @@ import type { ErrorComponentProps } from '@tanstack/react-router'
 
 export default function ErrorPage({ error, reset }: ErrorComponentProps) {
 	const routerState = useRouterState()
+	const errorMessage =
+		error instanceof Error
+			? error.message
+			: typeof error === 'string'
+				? error
+				: error &&
+					  typeof error === 'object' &&
+					  'message' in error &&
+					  typeof error.message === 'string'
+					? error.message
+					: 'An unknown error occurred'
 
 	return (
 		<div className="min-h-[60vh] flex items-center justify-center px-8 py-16">
@@ -60,7 +71,7 @@ export default function ErrorPage({ error, reset }: ErrorComponentProps) {
 								Error Details:
 							</p>
 							<p className="text-sm text-red-700 font-mono break-words">
-								{error?.message || 'An unknown error occurred'}
+								{errorMessage}
 							</p>
 							{routerState.location.pathname && (
 								<p className="text-xs text-red-600 mt-2">

@@ -130,9 +130,13 @@ export function Navbar() {
 	const routerState = useRouterState()
 
 	// Close mobile menu on route change
-	useEffect(() => {
+	const [prevPathname, setPrevPathname] = useState(
+		routerState.location.pathname,
+	)
+	if (prevPathname !== routerState.location.pathname) {
+		setPrevPathname(routerState.location.pathname)
 		setMobileMenuOpen(false)
-	}, [routerState.location.pathname])
+	}
 
 	// Close mobile menu when clicking outside
 	useEffect(() => {
